@@ -28,9 +28,9 @@ import pathlib
 import pyccda
 from datetime import datetime
 
-DB_HOST = ""
-DB_LOGIN = ""
-DB_PASSWORD = ""
+DB_HOST = "localhost"
+DB_LOGIN = "alex"
+DB_PASSWORD = "alexoidy"
 
 class testGui(Widget):
     loginButton = ObjectProperty(None)
@@ -70,7 +70,10 @@ class testGui(Widget):
 
     def __init__(self, **kwargs):
         self.dbCom = DatabaseCommunication()
-        self.dbCom.initDb(DB_HOST,DB_LOGIN,DB_PASSWORD)
+        try:
+            self.dbCom.initDb(DB_HOST,DB_LOGIN,DB_PASSWORD)
+        except :
+            pass
         Widget.__init__(self)
         self.loginButton.on_press = self.logRequest
         self.getPatientData.on_press = self.showPatientDataById

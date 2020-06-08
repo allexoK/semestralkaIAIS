@@ -1,3 +1,10 @@
+-NEJDRIVE JE POTREBA ROZJECT DB A ZAJISTIT PRIPOJENI VIZ main.py,
+DB_HOST = ""
+DB_LOGIN = ""
+DB_PASSWORD = ""
+
+-mysql ddl je v priloze
+
 -Po přihalšení zkontroluje jestli je lekař s takovým loginem a heslem
 -Pokud jo, ukaze pacienty tohoto lekare
 -Pro ziskani info o pacientoci je potreba zadat jeho id do polozky ID a zmacknout tlacitko "ziskat informaci o pacientovi"
