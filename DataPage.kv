@@ -1,0 +1,279 @@
+<DataPage@BoxLayout>: 
+    size: root.size
+    pos: root.pos
+
+    orientation: 'horizontal'
+    size_hint:1,1
+    patientsNames:patientsNames 
+    patientsIds:patientsIds
+    genderMale:genderMale
+    genderFemale:genderFemale
+    nameField:nameField
+    surnameField:surnameField
+    birthPlaceField:birthPlaceField
+    birthCityField:birthCityField
+    birthPostalField:birthPostalField
+    birthDateField:birthDateField
+    scrollPage:scrollPage
+    getPatientData:getPatientData
+    setPatientData:setPatientData
+    patientDataId:patientDataId
+    delPatientData:delPatientData
+    addProcedure:addProcedure
+    dateProcField:dateProcField
+    snomedProcField:snomedProcField
+    procName:procName
+    proc:proc
+    procDate:procDate
+    procId:procId
+    scrollPageProc:scrollPageProc
+    nameProcField:nameProcField
+    idDelProcField:idDelProcField
+    delProcedure:delProcedure
+    exportAsCCDA:exportAsCCDA
+    exportAsCCDAPath:exportAsCCDAPath
+    martSingle:martSingle
+    martMarried:martMarried
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint:0.5,1
+        Label:
+            text:"Dostupné pacienti"
+            size_hint:1,0.05
+            canvas:
+                Color:
+                    rgba:1,1,1,0.1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint:1,0.05
+            canvas:
+                Color:
+                    rgba:1,1,1,0.05
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Label:
+                text:"Jméno"
+                size_hint:0.5,1
+            Label:
+                text:"Id"
+                size_hint:0.5,1
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+            size_hint:1,0.9
+            BoxLayout:
+                id:scrollPage
+                size_hint_y: None
+                height: 1000
+                orientation: 'horizontal'
+                Label:
+                    id:patientsNames
+                Label:
+                    id:patientsIds
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint:0.5,1
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint:1,0.05
+            Label:
+                size_hint:0.1,1
+                text:"id:"
+            TextInput:
+                id:patientDataId
+                size_hint:0.9,1
+        Button:
+            size_hint:1,0.05
+            id:getPatientData
+            text:"Ziskat informaci o pacientovi"
+        Button:
+            size_hint:1,0.05
+            id:setPatientData
+            text:"Ulozit informaci o pacientovi"
+        Button:
+            size_hint:1,0.05
+            id:delPatientData
+            text:"Smazat informaci o pacientovi"
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint:1,0.05
+            Label:
+                size_hint:0.1,1
+                text:"path:"
+            TextInput:
+                id:exportAsCCDAPath
+                size_hint:0.6,1
+            Button:
+                size_hint:0.3,1
+                id:exportAsCCDA
+                text:"export as C-CDA"        
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint:1,0.80
+            canvas:
+                Color:
+                    rgba:1,1,1,0.1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint:0.5,1
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint:0.5,1
+                    Label:
+                        text:"Name:"
+                        size_hint:1,0.075
+                    Label:
+                        text:"Surname:"
+                        size_hint:1,0.075
+                    Label:
+                        text:"Gender:"
+                        size_hint:1,0.075
+                    Label:
+                        text:"Status:"
+                        size_hint:1,0.075
+                    Label:
+                        text:"Birth country:"
+                        size_hint:1,0.075
+                    Label:
+                        text:"Birth city:"
+                        size_hint:1,0.075
+                    Label:
+                        text:"Birth postal:"
+                        size_hint:1,0.075
+                    Label:
+                        text:"Birth date:"
+                        size_hint:1,0.075
+                    Label:
+                        size_hint:1,0.550
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint:0.5,1
+                    TextInput:
+                        id:nameField
+                        size_hint:1,0.075
+                    TextInput:
+                        id:surnameField
+                        size_hint:1,0.075
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        size_hint:1,0.075
+                        Label:
+                            text:"Male:"
+                        CheckBox:
+                            size_hint:1,1
+                            id:genderMale
+                            active:True
+                            group:'genderGroup'
+                        Label:
+                            text:"Female:"
+                        CheckBox:
+                            size_hint:1,1
+                            id:genderFemale
+                            active:False
+                            group:'genderGroup'
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        size_hint:1,0.075
+                        Label:
+                            text:"Single:"
+                        CheckBox:
+                            size_hint:1,1
+                            id:martSingle
+                            active:True
+                            group:'martStatus'
+                        Label:
+                            text:"Married:"
+                        CheckBox:
+                            size_hint:1,1
+                            id:martMarried
+                            active:False
+                            group:'martStatus'
+                    TextInput:
+                        id:birthPlaceField
+                        size_hint:1,0.075
+                    TextInput:
+                        id:birthCityField
+                        size_hint:1,0.075
+                    TextInput:
+                        id:birthPostalField
+                        size_hint:1,0.075
+                    TextInput:
+                        id:birthDateField
+                        size_hint:1,0.075
+                    Label:
+                        size_hint:1,0.550
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint:0.5,1
+                Button:
+                    size_hint:1,0.075
+                    id:addProcedure
+                    text:"Pridat proceduru"
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint:1,0.075
+                    Label:
+                        size_hint:0.5,1
+                        text:"SNOMED CT"
+                    TextInput:
+                        id:snomedProcField
+                        size_hint:0.5,1
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint:1,0.075
+                    Label:
+                        size_hint:0.5,1
+                        text:"Name:"
+                    TextInput:
+                        id:nameProcField
+                        size_hint:0.5,1
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint:1,0.075
+                    Label:
+                        size_hint:0.5,1
+                        text:"Date:"
+                    TextInput:
+                        id:dateProcField
+                        size_hint:0.5,1
+                ScrollView:
+                    do_scroll_x: False
+                    do_scroll_y: True
+                    size_hint:1,0.550
+                    BoxLayout:
+                        id:scrollPageProc
+                        size_hint_y: None
+                        height: 1000
+                        orientation: 'horizontal'
+                        Label:
+                            size_hint:0.15,1
+                            id:procId
+                        Label:
+                            size_hint:0.20,1
+                            id:proc
+                        Label:
+                            size_hint:0.45,1
+                            id:procName
+                        Label:
+                            size_hint:0.20,1
+                            id:procDate
+                Button:
+                    size_hint:1,0.075
+                    id:delProcedure
+                    text:"Smazat proceduru"
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint:1,0.075
+                    Label:
+                        size_hint:0.5,1
+                        text:"id:"
+                    TextInput:
+                        id:idDelProcField
+                        size_hint:0.5,1

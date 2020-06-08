@@ -1,0 +1,92 @@
+#:include LoginPage.kv
+#:include DataPage.kv
+
+<StandVertBoxLayout@BoxLayout>:
+    orientation: 'vertical'
+
+<StandHorBoxLayout@BoxLayout>:
+    orientation: 'horizontal'
+
+<testGui>:
+    loginButton:loginPage.loginButton
+    loginPassword:loginPage.loginPassword
+    loginLogin:loginPage.loginLogin  
+    doctorName:doctorName  
+    patientsNames:dataPage.patientsNames
+    patientsIds:dataPage.patientsIds
+    genderMale:dataPage.genderMale
+    genderFemale:dataPage.genderFemale
+    nameField:dataPage.nameField
+    procName:dataPage.procName
+    surnameField:dataPage.surnameField
+    birthPlaceField:dataPage.birthPlaceField
+    birthDateField:dataPage.birthDateField
+    birthCityField:dataPage.birthCityField
+    birthPostalField:dataPage.birthPostalField
+    getPatientData:dataPage.getPatientData
+    setPatientData:dataPage.setPatientData
+    patientDataId:dataPage.patientDataId
+    delPatientData:dataPage.delPatientData
+    scrollPage:dataPage.scrollPage
+    dateProcField:dataPage.dateProcField
+    snomedProcField:dataPage.snomedProcField
+    proc:dataPage.proc
+    procDate:dataPage.procDate
+    addProcedure:dataPage.addProcedure
+    scrollPageProc:dataPage.scrollPageProc
+    nameProcField:dataPage.nameProcField
+    idDelProcField:dataPage.idDelProcField
+    delProcedure:dataPage.delProcedure
+    procId:dataPage.procId
+    exportAsCCDA:dataPage.exportAsCCDA
+    exportAsCCDAPath:dataPage.exportAsCCDAPath
+    martSingle:dataPage.martSingle
+    martMarried:dataPage.martMarried
+
+    StandVertBoxLayout:
+        do_default_tab: False
+        size: root.size
+        pos: root.pos
+        canvas:
+            Color:
+                rgba:1,1,1,0
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        TabbedPanel:
+            do_default_tab: False
+            size_hint:1,0.9
+            TabbedPanelItem:
+                text: 'Login'
+                LoginPage:
+                    id:loginPage
+            TabbedPanelItem:
+                text: 'List'
+                DataPage:
+                    id:dataPage
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint:1,0.10
+            canvas:
+                Color:
+                    rgba:1,1,1,0.1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            Label:
+                size_hint:0.2,1
+                text:"Uživatel přihlašen jako:"
+            Label:
+                id:doctorName
+                size_hint:0.1,1
+                text:"Neni prihlašen"
+            Label:
+                size_hint:0.7,1
+                text:""
+
+        # TextInput:
+
+        #     size_hint:1,0.3
+        #     id:console
+        #     text:"Output console ready \n"

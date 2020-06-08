@@ -1,0 +1,48 @@
+<LoginPage@BoxLayout>:
+    size: root.size
+    pos: root.pos
+    orientation: 'horizontal'
+    size_hint:1,1    
+    loginButton:loginButton
+    loginLogin:loginLogin
+    loginPassword:loginPassword
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint:0.3,1
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint:0.4,1
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint:1,0.40
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint:1,0.075
+            Label:
+                text:"Login"
+                size_hint:0.25,1
+            TextInput:
+                id:loginLogin
+                size_hint:0.75,1
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint:1,0.075
+            Label:
+                text:"Heslo"
+                size_hint:0.25,1
+            TextInput:
+                id:loginPassword
+                size_hint:0.75,1
+        Button:
+            id:loginButton
+            text: 'Log in'
+            size_hint:1,0.10
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint:1,0.20
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint:1,0.20
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint:0.3,1

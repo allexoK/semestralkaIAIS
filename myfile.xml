@@ -1,0 +1,233 @@
+<?xml version="1.0" ?><?xml-stylesheet type="text/xsl" href="CDA.xsl"?><!--
+	Title: US_Realm_Header_Template
+
+	Revision History:
+	 01/31/2011 bam created
+    07/29/2011 RWM modified
+    11/26/2011 RWM modified
+    08/12/2012 RWM modified
+    09/12/2012 BNR(Dragon) modified
+
+ --><ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:cda="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:hl7-org:v3 ../../../CDA%20R2/cda-schemas-and-samples/infrastructure/cda/CDA.xsd">
+   
+   <!--
+********************************************************
+  CDA Header
+********************************************************
+	-->
+   <!-- CONF 16791 -->
+   <realmCode code="US"/>
+   
+   <!-- CONF 5361 -->
+   <typeId extension="POCD_HD000040" root="2.16.840.1.113883.1.3"/>
+   
+   <!-- US General Header Template -->
+   <!-- CONF 5252 -->
+   <templateId root="2.16.840.1.113883.10.20.22.1.1"/>
+   <!-- *** Note:  The next templateId, code and title will differ depending on what type of document is being sent. *** -->
+   <!-- conforms to the document specific requirements  -->
+   <templateId root="2.16.840.1.113883.10.20.22.1.2"/>
+   
+   <!-- CONF 5363 -->
+   <id extension="Test CCDA" root="1.1.1.1.1.1.1.1.1"/>
+   
+   <!-- CONF 5253 "CCD document" -->
+   <code code="34133-9" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Summarization of Episode Note"/>
+   
+   <!-- CONF 5254 -->
+   <title>Community Health and Hospitals: Health Summary</title>
+   
+   <!-- CONF 5256 -->
+   <effectiveTime value="20120912000000-0000"/>
+   
+   <!-- 5259 -->
+   <confidentialityCode code="N" codeSystem="2.16.840.1.113883.5.25"/>
+   
+   <!-- 5372 -->
+   <languageCode code="en-US"/>
+   
+   <!-- CONF 5266 -->
+   <recordTarget>
+      
+      <!-- CONF 5267 -->
+      <patientRole>
+         
+         <!-- CONF 5268-->
+         <id extension="1" root="2.16.840.1.113883.4.6"/>
+         <!-- Fake ID using HL7 example OID. -->
+         
+         <!-- Patient SSN recorded as an ID -->
+         <id extension="123-101-5230" root="2.16.840.1.113883.4.1"/>
+         
+         <!-- CONF 5271 -->
+         <addr use="HP">
+            <!-- HP is "primary home" from codeSystem 2.16.840.1.113883.5.1119 -->
+            <streetAddressLine>1357 Amber Drive</streetAddressLine>
+            <city>Beaverton</city>
+            <state>OR</state>
+            <postalCode>97006</postalCode>
+            <country>US</country>
+            <!-- US is "United States" from ISO 3166-1 Country Codes: 1.0.3166.1 -->
+         </addr>
+         
+         <!-- CONF 5280 -->
+         <telecom use="HP" value="tel:(816)276-6909"/>
+         <!-- HP is "primary home" from HL7 AddressUse 2.16.840.1.113883.5.1119 -->
+         
+         <!-- CONF 5283 -->
+         <patient>
+            
+            <!-- CONF 5284 -->
+            <name use="L">
+               <!-- L is "Legal" from HL7 EntityNameUse 2.16.840.1.113883.5.45 -->
+               <given>Myra</given>
+               <!-- CL is "Call me" from HL7 EntityNamePartQualifier 2.16.840.1.113883.5.43 -->
+               <family>Jones</family>
+            </name>
+            <administrativeGenderCode code="M" codeSystem="2.16.840.1.113883.5.1" displayName="Male"/>
+            <birthTime value="20111211"/>
+            
+            <maritalStatusCode code="F" codeSystem="2.16.840.1.113883.5.2" codeSystemName="MaritalStatusCode" displayName="Free"/>
+            <religiousAffiliationCode code="1013" codeSystem="2.16.840.1.113883.5.1076" codeSystemName="HL7 Religious Affiliation " displayName="Jewish"/>
+            
+            <!-- Need to Fix the Race Code to be from the OMB Standards -->
+            <raceCode code="2106-3" codeSystem="2.16.840.1.113883.6.238" codeSystemName="Race and Ethnicity - CDC" displayName="White"/>
+            <ethnicGroupCode code="2186-5" codeSystem="2.16.840.1.113883.6.238" codeSystemName="Race and Ethnicity - CDC" displayName="Hispanic"/>
+            <birthplace>
+               <place>
+                  <addr>
+                     <city>Perm</city>
+                     <state>State</state>
+                     <postalCode>Petropavlovskaya</postalCode>
+                     <country>Russia</country>
+                  </addr>
+               </place>
+            </birthplace>
+            
+            <!-- FIX  the Code System to be 639.2 -->
+         </patient>
+      </patientRole>
+   </recordTarget>
+   
+   <!-- ********************************************************
+     CDA Body
+     ******************************************************** -->
+   <component>
+      <structuredBody>
+         <!-- *********************** -->
+       
+         <!--
+********************************************************
+MEDICATIONS
+********************************************************
+-->
+         <component>
+            <section>
+               <templateId root="2.16.840.1.113883.10.20.22.2.1.1"/>
+               <code code="10160-0" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="HISTORY OF MEDICATION USE"/>
+               <title>Medications</title>
+               <text>
+                  <table border="1" width="100%">
+                     <thead>
+                        <tr>
+                           <th>Medication</th>
+                           <th>Directions</th>
+                           <th>Start Date</th>
+                           <th>Status</th>
+                           <th>Indications</th>
+                           <th>Fill Instructions</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                     </tbody>
+                  </table>
+               </text>
+            </section>
+         </component>
+         <!--
+********************************************************
+PROCEDURES
+********************************************************
+-->
+         <component>
+            <section>
+               <templateId root="2.16.840.1.113883.10.20.22.2.7.1"/>
+               <!-- Procedures section template -->
+               <code code="47519-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="HISTORY OF PROCEDURES"/>
+               <title>PROCEDURES</title>
+               <text>
+                  <table border="1" width="100%">
+                     <thead>
+                        <tr>
+                           <th>Procedure</th>
+                           <th>Date</th>
+                        </tr>
+                     </thead>
+                  </table>
+               </text>             
+            <entry typeCode="DRIV">
+                     <procedure classCode="PROC" moodCode="EVN">
+                        <templateId root="2.16.840.1.113883.10.20.22.4.14"/>
+                        <!-- Procedure Activity Observation -->
+                        <id extension="123456789" root="2.16.840.1.113883.19"/>
+                        <code code="42011-7" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Chest X-Ray">
+                           <originalText>
+                              <reference value=""/>
+                           </originalText>
+                        </code>
+                        <statusCode code="completed"/>
+                        <effectiveTime value="20121122"/>
+                        <priorityCode code="CR" codeSystem="2.16.840.1.113883.5.7" codeSystemName="ActPriority" displayName="Callback results"/>
+                        <methodCode nullFlavor="UNK"/>
+                     </procedure>
+                  </entry></section>
+         </component>
+         <!--
+
+********************************************************
+VITAL SIGNS
+********************************************************
+-->
+         <component>
+            <section>
+               <templateId root="2.16.840.1.113883.10.20.22.2.4.1"/>
+               <code code="8716-3" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="VITAL SIGNS"/>
+               <title>VITAL SIGNS</title>
+               <text>
+                  <table border="1" width="100%">
+                     <thead>
+                        <tr>
+                           <th align="right">Date / Time: </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                     </tbody>
+                  </table>
+               </text>
+            <entry typeCode="DRIV">
+                  <organizer classCode="CLUSTER" moodCode="EVN">
+                     <templateId root="2.16.840.1.113883.10.20.22.4.26"/>
+                     <!-- Vital signs organizer template -->
+                     <id root="c6f88320-67ad-11db-bd13-0800200c9a66"/>
+                     <code code="46680005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED -CT" displayName="Vital signs"/>
+                     <statusCode code="completed"/>
+                     <effectiveTime value="20081123"/>
+                     <component>
+                        <observation classCode="OBS" moodCode="EVN">
+                           <templateId root="2.16.840.1.113883.10.20.22.4.27"/>
+                           <!-- Vital Sign Observation template -->
+                           <id root="c6f88321-67ad-11db-bd13-0800200c9a66"/>
+                           <code code="8302-2" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Height"/>
+                           <text><reference value=""/></text>
+                           <statusCode code="completed"/>
+                           <effectiveTime value="20081123"/>
+                           <value type="" unit="cm" value="181"/>
+                           <interpretationCode code="N" codeSystem="2.16.840.1.113883.5.83"/>
+                        </observation>
+                     </component>
+                  </organizer>
+               </entry></section>
+         </component>
+      </structuredBody>
+   </component>
+</ClinicalDocument>
