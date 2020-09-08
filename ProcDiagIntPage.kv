@@ -1,0 +1,325 @@
+<ProcDiagIntPage@BoxLayout>: 
+    size: root.size
+    pos: root.pos
+
+    orientation: 'horizontal'
+    size_hint:1,1
+
+    addProcedure:addProcedure
+    dateProcField:dateProcField
+    snomedProcField:snomedProcField
+    procName:procName
+    proc:proc
+    procDate:procDate
+    procId:procId
+    scrollPageProc:scrollPageProc
+    nameProcField:nameProcField
+    idDelProcField:idDelProcField
+    delProcedure:delProcedure
+    procKonc:procKonc
+    procResult:procResult
+    procPos:procPos
+    procNeg:procNeg
+
+    addDiag:addDiag
+    dateDiagField:dateDiagField
+    snomedDiagField:snomedDiagField
+    diagName:diagName
+    diag:diag
+    diagDate:diagDate
+    diagId:diagId
+    scrollPageDiag:scrollPageDiag
+    nameDiagField:nameDiagField
+    idDelDiagField:idDelDiagField
+    delDiag:delDiag
+    diagKonc:diagKonc
+    
+    addMed:addMed
+    dateMedField:dateMedField
+    snomedMedField:snomedMedField
+    medName:medName
+    med:med
+    medDate:medDate
+    medId:medId
+    scrollPageMed:scrollPageMed
+    nameMedField:nameMedField
+    idDelMedField:idDelMedField
+    delMed:delMed
+    medKonc:medKonc
+
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint:1,1
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint:1,1
+            canvas:
+                Color:
+                    rgba:1,1,1,0.1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint:0.33,1
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint:1,0.5
+                    Label:
+                        text:"Koncepty"
+                        size_hint:1,0.075
+                    BoxLayout:
+                        orientation: 'vertical'
+                        id:procKonc
+                        size_hint:1,0.925
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint:1,0.5
+                    Button:
+                        size_hint:1,0.075
+                        id:addProcedure
+                        text:"Pridat proceduru"
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        size_hint:1,0.075
+                        Label:
+                            size_hint:0.5,1
+                            text:"SNOMED CT"
+                        Label:
+                            id:snomedProcField
+                            size_hint:0.5,1
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        size_hint:1,0.075
+                        Label:
+                            size_hint:0.5,1
+                            text:"Name:"
+                        Label:
+                            id:nameProcField
+                            size_hint:0.5,1
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        size_hint:1,0.1
+                        Label:
+                            size_hint:0.5,1
+                            text:"Date:"
+                        TextInput:
+                            id:dateProcField
+                            size_hint:0.5,1
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        size_hint:1,0.1
+                        Label:
+                            text:"Pos:"
+                        CheckBox:
+                            size_hint:1,1
+                            id:procPos
+                            active:True
+                            group:'procResGroup'
+                        Label:
+                            text:"Neg:"
+                        CheckBox:
+                            size_hint:1,1
+                            id:procNeg
+                            active:False
+                            group:'procResGroup'
+
+                    ScrollView:
+                        do_scroll_x: False
+                        do_scroll_y: True
+                        size_hint:1,0.4
+                        BoxLayout:
+                            id:scrollPageProc
+                            size_hint_y: None
+                            height: 1000
+                            orientation: 'horizontal'
+                            Label:
+                                size_hint:0.15,1
+                                id:procId
+                            Label:
+                                size_hint:0.20,1
+                                id:proc
+                            Label:
+                                size_hint:0.35,1
+                                id:procName
+                            Label:
+                                size_hint:0.20,1
+                                id:procDate
+                            Label:
+                                size_hint:0.10,1
+                                id:procResult
+                    Button:
+                        size_hint:1,0.075
+                        id:delProcedure
+                        text:"Smazat proceduru"
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        size_hint:1,0.1
+                        Label:
+                            size_hint:0.5,1
+                            text:"id:"
+                        TextInput:
+                            id:idDelProcField
+                            size_hint:0.5,1
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint:0.33,1
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint:1,0.5
+                    Label:
+                        text:"Koncepty"
+                        size_hint:1,0.075
+                    BoxLayout:
+                        orientation: 'vertical'
+                        id:diagKonc
+                        size_hint:1,0.925
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint:1,0.5
+                    Button:
+                        size_hint:1,0.075
+                        id:addDiag
+                        text:"Pridat diagnozu"
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        size_hint:1,0.075
+                        Label:
+                            size_hint:0.5,1
+                            text:"ICD-10"
+                        Label:
+                            id:snomedDiagField
+                            size_hint:0.5,1
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        size_hint:1,0.075
+                        Label:
+                            size_hint:0.5,1
+                            text:"Name:"
+                        Label:
+                            id:nameDiagField
+                            size_hint:0.5,1
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        size_hint:1,0.1
+                        Label:
+                            size_hint:0.5,1
+                            text:"Date:"
+                        TextInput:
+                            id:dateDiagField
+                            size_hint:0.5,1
+                    ScrollView:
+                        do_scroll_x: False
+                        do_scroll_y: True
+                        size_hint:1,0.5
+                        BoxLayout:
+                            id:scrollPageDiag
+                            size_hint_y: None
+                            height: 1000
+                            orientation: 'horizontal'
+                            Label:
+                                size_hint:0.15,1
+                                id:diagId
+                            Label:
+                                size_hint:0.20,1
+                                id:diag
+                            Label:
+                                size_hint:0.45,1
+                                id:diagName
+                            Label:
+                                size_hint:0.20,1
+                                id:diagDate
+                    Button:
+                        size_hint:1,0.075
+                        id:delDiag
+                        text:"Smazat diagnozu"
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        size_hint:1,0.1
+                        Label:
+                            size_hint:0.5,1
+                            text:"id:"
+                        TextInput:
+                            id:idDelDiagField
+                            size_hint:0.5,1
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint:0.33,1
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint:1,0.5
+                    Label:
+                        text:"Koncepty"
+                        size_hint:1,0.075
+                    BoxLayout:
+                        orientation: 'vertical'
+                        id:medKonc
+                        size_hint:1,0.925
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint:1,0.5
+                    Button:
+                        size_hint:1,0.075
+                        id:addMed
+                        text:"Pridat lek"
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        size_hint:1,0.075
+                        Label:
+                            size_hint:0.5,1
+                            text:"SNOMED CT"
+                        Label:
+                            id:snomedMedField
+                            size_hint:0.5,1
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        size_hint:1,0.075
+                        Label:
+                            size_hint:0.5,1
+                            text:"Name:"
+                        Label:
+                            id:nameMedField
+                            size_hint:0.5,1
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        size_hint:1,0.1
+                        Label:
+                            size_hint:0.5,1
+                            text:"Date:"
+                        TextInput:
+                            id:dateMedField
+                            size_hint:0.5,1
+                    ScrollView:
+                        do_scroll_x: False
+                        do_scroll_y: True
+                        size_hint:1,0.5
+                        BoxLayout:
+                            id:scrollPageMed
+                            size_hint_y: None
+                            height: 1000
+                            orientation: 'horizontal'
+                            Label:
+                                size_hint:0.15,1
+                                id:medId
+                            Label:
+                                size_hint:0.20,1
+                                id:med
+                            Label:
+                                size_hint:0.45,1
+                                id:medName
+                            Label:
+                                size_hint:0.20,1
+                                id:medDate
+                    Button:
+                        size_hint:1,0.075
+                        id:delMed
+                        text:"Smazat lek"
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        size_hint:1,0.1
+                        Label:
+                            size_hint:0.5,1
+                            text:"id:"
+                        TextInput:
+                            id:idDelMedField
+                            size_hint:0.5,1

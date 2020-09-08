@@ -1,5 +1,6 @@
 #:include LoginPage.kv
 #:include DataPage.kv
+#:include ProcDiagIntPage.kv
 
 <StandVertBoxLayout@BoxLayout>:
     orientation: 'vertical'
@@ -17,7 +18,6 @@
     genderMale:dataPage.genderMale
     genderFemale:dataPage.genderFemale
     nameField:dataPage.nameField
-    procName:dataPage.procName
     surnameField:dataPage.surnameField
     birthPlaceField:dataPage.birthPlaceField
     birthDateField:dataPage.birthDateField
@@ -28,20 +28,60 @@
     patientDataId:dataPage.patientDataId
     delPatientData:dataPage.delPatientData
     scrollPage:dataPage.scrollPage
-    dateProcField:dataPage.dateProcField
-    snomedProcField:dataPage.snomedProcField
-    proc:dataPage.proc
-    procDate:dataPage.procDate
-    addProcedure:dataPage.addProcedure
-    scrollPageProc:dataPage.scrollPageProc
-    nameProcField:dataPage.nameProcField
-    idDelProcField:dataPage.idDelProcField
-    delProcedure:dataPage.delProcedure
-    procId:dataPage.procId
     exportAsCCDA:dataPage.exportAsCCDA
     exportAsCCDAPath:dataPage.exportAsCCDAPath
     martSingle:dataPage.martSingle
     martMarried:dataPage.martMarried
+    visitDate:dataPage.visitDate
+    visitId:dataPage.visitId
+    scrollPageVisits:dataPage.scrollPageVisits
+    addVisit:dataPage.addVisit
+    removeVisit:dataPage.removeVisit
+    dateAddVisitField:dataPage.dateAddVisitField
+    idDelVisitField:dataPage.idDelVisitField
+
+    procName:procDiagIntPage.procName
+    dateProcField:procDiagIntPage.dateProcField
+    snomedProcField:procDiagIntPage.snomedProcField
+    proc:procDiagIntPage.proc
+    procDate:procDiagIntPage.procDate
+    addProcedure:procDiagIntPage.addProcedure
+    scrollPageProc:procDiagIntPage.scrollPageProc
+    nameProcField:procDiagIntPage.nameProcField
+    idDelProcField:procDiagIntPage.idDelProcField
+    delProcedure:procDiagIntPage.delProcedure
+    procId:procDiagIntPage.procId
+    procKonc:procDiagIntPage.procKonc
+    procRes:procDiagIntPage.procResult
+    procPos:procDiagIntPage.procPos
+    procNeg:procDiagIntPage.procNeg
+
+    diagName:procDiagIntPage.diagName
+    dateDiagField:procDiagIntPage.dateDiagField
+    snomedDiagField:procDiagIntPage.snomedDiagField
+    diag:procDiagIntPage.diag
+    diagDate:procDiagIntPage.diagDate
+    addDiag:procDiagIntPage.addDiag
+    scrollPageDiag:procDiagIntPage.scrollPageDiag
+    nameDiagField:procDiagIntPage.nameDiagField
+    idDelDiagField:procDiagIntPage.idDelDiagField
+    delDiag:procDiagIntPage.delDiag
+    diagId:procDiagIntPage.diagId
+    diagKonc:procDiagIntPage.diagKonc
+
+    medName:procDiagIntPage.medName
+    dateMedField:procDiagIntPage.dateMedField
+    snomedMedField:procDiagIntPage.snomedMedField
+    med:procDiagIntPage.med
+    medDate:procDiagIntPage.medDate
+    addMed:procDiagIntPage.addMed
+    scrollPageMed:procDiagIntPage.scrollPageMed
+    nameMedField:procDiagIntPage.nameMedField
+    idDelMedField:procDiagIntPage.idDelMedField
+    delMed:procDiagIntPage.delMed
+    medId:procDiagIntPage.medId
+    medKonc:procDiagIntPage.medKonc
+
 
     StandVertBoxLayout:
         do_default_tab: False
@@ -64,6 +104,10 @@
                 text: 'List'
                 DataPage:
                     id:dataPage
+            TabbedPanelItem:
+                text:'Config'
+                ProcDiagIntPage:
+                    id:procDiagIntPage
         BoxLayout:
             orientation: 'horizontal'
             size_hint:1,0.10

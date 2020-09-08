@@ -18,6 +18,7 @@ from kivy.uix.togglebutton import ToggleButton
 from kivy.uix.checkbox import CheckBox
 from kivy.uix.label import Label
 from kivy.uix.slider import Slider
+from kivy.uix.button import Button
 from kivy.properties import ObjectProperty
 from kivy.uix.textinput import TextInput
 from kivy.uix.tabbedpanel import TabbedPanel
@@ -52,6 +53,7 @@ class testGui(Widget):
     patientDataId = ObjectProperty(None)
     setPatientData = ObjectProperty(None)
     delPatientData = ObjectProperty(None)
+    
     dateProcField = ObjectProperty(None)
     snomedProcField = ObjectProperty(None)
     addProcedure = ObjectProperty(None)
@@ -62,33 +64,131 @@ class testGui(Widget):
     idDelProcField = ObjectProperty(None)
     delProcedure = ObjectProperty(None)
     procId = ObjectProperty(None)
+    procName = ObjectProperty(None)
+    procKonc = ObjectProperty(None)
+    procRes = ObjectProperty(None)
+    procPos = ObjectProperty(None)
+    procNeg = ObjectProperty(None)
+
+    dateDiagField = ObjectProperty(None)
+    snomedDiagField = ObjectProperty(None)
+    addDiag = ObjectProperty(None)
+    diag = ObjectProperty(None)
+    diagDate = ObjectProperty(None)
+    scrollPageDiag = ObjectProperty(None)
+    nameDiagField = ObjectProperty(None)
+    idDelDiagField = ObjectProperty(None)
+    delDiag = ObjectProperty(None)
+    diagId = ObjectProperty(None)
+    diagName = ObjectProperty(None)
+    diagKonc = ObjectProperty(None)
+
+    dateMedField = ObjectProperty(None)
+    snomedMedField = ObjectProperty(None)
+    addMed = ObjectProperty(None)
+    med = ObjectProperty(None)
+    medDate = ObjectProperty(None)
+    scrollPageMed = ObjectProperty(None)
+    nameMedField = ObjectProperty(None)
+    idDelMedField = ObjectProperty(None)
+    delMed = ObjectProperty(None)
+    medId = ObjectProperty(None)
+    medName = ObjectProperty(None)
+    medKonc = ObjectProperty(None)
+
+    visitDate = ObjectProperty(None)
+    visitId = ObjectProperty(None)
+    scrollPageVisits = ObjectProperty(None)
+    removeVisit = ObjectProperty(None)
+    addVisit = ObjectProperty(None)
+    dateAddVisitField = ObjectProperty(None)
+    idDelVisitField = ObjectProperty(None)
+
     exportAsCCDA = ObjectProperty(None)
     exportAsCCDAPath = ObjectProperty(None)
     martSingle = ObjectProperty(None)
     martMarried = ObjectProperty(None)
-    procName = ObjectProperty(None)
 
     def __init__(self, **kwargs):
         self.dbCom = DatabaseCommunication()
         try:
             self.dbCom.initDb(DB_HOST,DB_LOGIN,DB_PASSWORD)
-        except :
+        except:
             pass
         Widget.__init__(self)
         self.loginButton.on_press = self.logRequest
         self.getPatientData.on_press = self.showPatientDataById
         self.setPatientData.on_press = self.updatePatientDataById
         self.delPatientData.on_press = self.deletePatientDataById
+
         self.addProcedure.on_press = self.addProcedureById
         self.delProcedure.on_press = self.delProcedureById
+
+        self.addDiag.on_press = self.addDiagById
+        self.delDiag.on_press = self.delDiagById
+
+        self.addMed.on_press = self.addMedById
+        self.delMed.on_press = self.delMedById
+
+        self.addVisit.on_press = self.addVisitById
+        self.removeVisit.on_press = self.delVisitById
+
         self.exportAsCCDA.on_press = self.exportAsCCDAById
         self.loginPassword.text = "jan123"
         self.loginLogin.text = "janvak"
         self.exportAsCCDAPath.text = str(pathlib.Path().absolute()) + "/output.xml"
+        self.loadProcConcepts()
+        self.loadDiagConcepts()
+        self.loadMedConcepts()
 
     def logRequest(self):
         if(self.dbCom.logIn(self.loginLogin.text,self.loginPassword.text) == True):
             self.successfullLoginCallback()
+
+    def loadProcConcepts(self):
+        procs = self.dbCom.getProcConcepts()
+        self.procToInsert = None
+        for proc in procs:
+            button = Button(size_hint_y = 0.05,text = proc[0] + " " + proc[1])
+            def func(p0=proc[0],p1=proc[1],p2=proc[2]):
+                self.nameProcField.text = p1
+                self.snomedProcField.text = p0
+                self.procToInsert = p2
+            button.on_press = func
+            self.procKonc.add_widget(button)
+        for x in range(10-len(procs)):
+            boxl = BoxLayout(orientation = 'horizontal', size_hint_y = 0.05)
+            self.procKonc.add_widget(boxl)
+
+    def loadDiagConcepts(self):
+        diags = self.dbCom.getDiagConcepts()
+        self.diagToInsert = None
+        for diag in diags:
+            button = Button(size_hint_y = 0.05,text = diag[0] + " " + diag[1])
+            def func(d0=diag[0],d1=diag[1],d2=diag[2]):
+                self.nameDiagField.text = d1
+                self.snomedDiagField.text = d0
+                self.diagToInsert = d2
+            button.on_press = func
+            self.diagKonc.add_widget(button)
+        for x in range(10-len(diags)):
+            boxl = BoxLayout(orientation = 'horizontal', size_hint_y = 0.05)
+            self.diagKonc.add_widget(boxl)
+
+    def loadMedConcepts(self):
+        meds = self.dbCom.getMedConcepts()
+        self.medToInsert = None
+        for med in meds:
+            button = Button(size_hint_y = 0.05,text = med[0] + " " + med[1])
+            def func(m0=med[0],m1=med[1],m2=med[2]):
+                self.nameMedField.text = m1
+                self.snomedMedField.text = m0
+                self.medToInsert = m2
+            button.on_press = func
+            self.medKonc.add_widget(button)
+        for x in range(10-len(meds)):
+            boxl = BoxLayout(orientation = 'horizontal', size_hint_y = 0.05)
+            self.medKonc.add_widget(boxl)
 
     def loadScrollPage(self):
         allPat = self.dbCom.getPatientNamesAndIds()
@@ -122,24 +222,80 @@ class testGui(Widget):
             data = self.dbCom.getPatientData(patId)
             if(data != None):
                 self.writeDataToColumns(data[1],data[2],data[4],data[5],data[6],data[8],data[9],data[10])
+
                 allint = self.dbCom.getPatientInterventions(patId)
                 interventions = allint[0]
                 stringProc = "Snomed ct\n"
                 stringDates = "Date\n"
                 stringNames = "Name\n"
                 stringIds = "Id\n"
+                stringResults = "Result\n"
                 for intervention in interventions:
                     stringProc += intervention[4] + "\n"
                     stringDates += intervention[2] + "\n"
-                    stringNames += intervention[1] + "\n"
+                    stringNames += intervention[3] + "\n"
                     stringIds += intervention[0] + "\n"
+                    stringResults += intervention[5] + "\n"
                 self.proc.text = stringProc
                 self.procDate.text = stringDates
                 self.procId.text = stringIds
                 self.procName.text = stringNames
+                self.procRes.text = stringResults
                 height = allint[1]
                 height+=50
                 self.scrollPageProc.height = height
+
+                alldiag = self.dbCom.getPatientDiagnostics(patId)
+                diags = alldiag[0]
+                stringDiag = "ICD-10\n"
+                stringDDates = "Date\n"
+                stringDNames = "Name\n"
+                stringDIds = "Id\n"
+                for diag in diags:
+                    stringDiag += diag[4] + "\n"
+                    stringDDates += diag[2] + "\n"
+                    stringDNames += diag[3] + "\n"
+                    stringDIds += diag[0] + "\n"
+                self.diag.text = stringDiag
+                self.diagDate.text = stringDDates
+                self.diagId.text = stringDIds
+                self.diagName.text = stringDNames
+                height = alldiag[1]
+                height+=50
+                self.scrollPageDiag.height = height
+
+                allmed = self.dbCom.getPatientMedicines(patId)
+                meds = allmed[0]
+                stringMeds = "Snomed ct\n"
+                stringMDates = "Date\n"
+                stringMNames = "Name\n"
+                stringMIds = "Id\n"
+                for med in meds:
+                    stringMeds += med[5] + "\n"
+                    stringMDates += med[3] + "\n"
+                    stringMNames += med[4] + "\n"
+                    stringMIds += med[0] + "\n"
+                self.med.text = stringMeds
+                self.medDate.text = stringMDates
+                self.medId.text = stringMIds
+                self.medName.text = stringMNames
+                height = allmed[1]
+                height+=50
+                self.scrollPageMed.height = height
+
+                allvis = self.dbCom.getPatientVisits(patId)
+                viss = allvis[0]
+                stringVDates = "Date\n"
+                stringVIds = "Id\n"
+                for vis in viss:
+                    stringVDates += vis[1] + "\n"
+                    stringVIds += vis[0] + "\n"
+                self.visitDate.text = stringVDates
+                self.visitId.text = stringVIds
+                height = allvis[1]
+                height+=50
+                self.scrollPageVisits.height = height
+
             else:
                 self.writeDataToColumns("","","","","","","","")
         else:
@@ -160,7 +316,8 @@ class testGui(Widget):
             if(self.martMarried.active == True):
                 marital = "Married"
             if(self.dbCom.patientExists(patId) == False):
-                self.dbCom.insertNewPatient(patId,self.nameField.text,self.surnameField.text,gender,marital,self.birthPlaceField.text,self.birthDateField.text)
+                # print("Insert new patient")
+                self.dbCom.insertNewPatient(idp = patId,name = self.nameField.text,surname = self.surnameField.text,gender = gender,status = marital, birthPlace = self.birthPlaceField.text, birthCity = self.birthCityField.text,postal = self.birthPostalField.text, birthDate = self.birthDateField.text)
             else:
                 self.dbCom.updatePatientName(self.nameField.text,self.patientDataId.text)
                 self.dbCom.updatePatientSurname(self.surnameField.text,self.patientDataId.text)
@@ -182,13 +339,56 @@ class testGui(Widget):
     def addProcedureById(self):
         patId = self.patientDataId.text
         if(patId.isdigit()):
-            self.dbCom.insertNewProcedure(patId,self.nameProcField.text,self.snomedProcField.text,self.dateProcField.text)
-            self.showPatientDataById()
+            if(self.procToInsert != None):
+                if(self.procPos.active == True):
+                    res = "pos"
+                else:
+                    res = "neg"
+                self.dbCom.insertNewProcedure(patId,self.procToInsert,self.dateProcField.text,res)
+                self.showPatientDataById()
 
     def delProcedureById(self):
         procId = self.idDelProcField.text
         if(procId.isdigit()):
             self.dbCom.deleteProcedure(procId)
+            self.showPatientDataById()
+
+    def addDiagById(self):
+        patId = self.patientDataId.text
+        if(patId.isdigit()):
+            if(self.diagToInsert != None):
+                self.dbCom.insertNewDiag(patId,self.diagToInsert,self.dateDiagField.text)
+                self.showPatientDataById()
+
+    def addMedById(self):
+        patId = self.patientDataId.text
+        if(patId.isdigit()):
+            if(self.medToInsert != None):
+                self.dbCom.insertNewMed(patId,self.medToInsert,self.dateMedField.text)
+                self.showPatientDataById()
+
+    def addVisitById(self):
+        patId = self.patientDataId.text
+        if(patId.isdigit()):
+            self.dbCom.insertNewVisit(patId,self.dateAddVisitField.text)
+            self.showPatientDataById()
+
+    def delDiagById(self):
+        diagId = self.idDelDiagField.text
+        if(diagId.isdigit()):
+            self.dbCom.deleteDiag(diagId)
+            self.showPatientDataById()
+
+    def delMedById(self):
+        medId = self.idDelMedField.text
+        if(medId.isdigit()):
+            self.dbCom.deleteMed(medId)
+            self.showPatientDataById()
+
+    def delVisitById(self):
+        visId = self.idDelVisitField.text
+        if(visId.isdigit()):
+            self.dbCom.deleteVisit(visId)
             self.showPatientDataById()
 
     def exportAsCCDAById(self):

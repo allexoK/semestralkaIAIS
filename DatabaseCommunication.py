@@ -24,7 +24,6 @@ class DatabaseCommunication:
             return None
         return data[1]
 
-
     def getPatientNamesAndIds(self):
         self.cursor.execute("SELECT * FROM `Patient` WHERE doctorId = '"+str(self.loggedAs)+"';")
         patientIds = ""
@@ -46,23 +45,31 @@ class DatabaseCommunication:
         return  patData
 
     def getPatientInterventions(self,id):
-        self.cursor.execute("SELECT * FROM `Intervention` WHERE patientId = '"+str(id)+"';")
+        self.cursor.execute("SELECT * FROM `Intervention choise` WHERE patientId = '"+str(id)+"';")
         patientInterventions = []
+        intRes = []
         rows = 0
         while(True):
             patData = self.cursor.fetchone()
             if(not patData):
                 break
             else:
-                rows += 25
+                rows += 17
                 intervention = []
                 intervention.append(str(patData[0]))
                 intervention.append(str(patData[1]))
-                intervention.append(str(patData[2]))
                 intervention.append(str(patData[3]))
-                intervention.append(str(patData[4]))
+                intRes.append(str(patData[4]))
                 patientInterventions.append(intervention)
 
+        for i in range(len(patientInterventions)):
+            self.cursor.execute("SELECT * FROM `Intervention` WHERE id = '"+str(patientInterventions[i][1])+"';")
+            patData = self.cursor.fetchone()
+            patientInterventions[i].append(patData[1])
+            patientInterventions[i].append(patData[2])
+            patientInterventions[i].append(intRes[i])
+
+        # print([patientInterventions,rows])
         return  [patientInterventions,rows]
 
     def getPatientVisits(self,id):
@@ -81,39 +88,75 @@ class DatabaseCommunication:
         return  patientVisits
 
     def getPatientDiagnostics(self,id):
-        self.cursor.execute("SELECT * FROM `Diagnostics` WHERE patientId = '"+str(id)+"';")
-        patientDiagnostics = [["Name","Date","Result"]]
+        self.cursor.execute("SELECT * FROM `Diagnostics choise` WHERE patientId = '"+str(id)+"';")
+        patientDiags = []
+        rows = 0
         while(True):
             patData = self.cursor.fetchone()
             if(not patData):
                 break
             else:
-                intervention = []
-                intervention.append(str(patData[1]))
-                intervention.append(str(patData[2]))
-                intervention.append(str(patData[3]))
-                patientDiagnostics.append(intervention)
+                rows += 17
+                diag = []
+                diag.append(str(patData[0]))
+                diag.append(str(patData[1]))
+                diag.append(str(patData[3]))
+                patientDiags.append(diag)
 
-        return  patientDiagnostics
+        for diag in patientDiags:
+            self.cursor.execute("SELECT * FROM `Diagnostics` WHERE id = '"+str(diag[1])+"';")
+            patData = self.cursor.fetchone()
+            diag.append(patData[1])
+            diag.append(patData[2])
+
+        # print([patientInterventions,rows])
+        return  [patientDiags,rows]
+
 
     def getPatientMedicines(self,id):
         self.cursor.execute("SELECT * FROM `Medicine choise` WHERE patientId = '"+str(id)+"';")
-        medIds = []
+        patientMeds = []
+        rows = 0
         while(True):
             patData = self.cursor.fetchone()
             if(not patData):
                 break
             else:
-                medIds.append(patData[0])
+                rows += 17
+                med = []
+                med.append(str(patData[0]))
+                med.append(str(patData[0]))
+                med.append(str(patData[1]))
+                med.append(str(patData[2]))
+                patientMeds.append(med)
 
-        medNames = [["Name",""]]
-        for x in range(len(medIds)):
-            self.cursor.execute("SELECT * FROM `Medicine` WHERE id = '"+str(medIds[x])+"';")
-            medData = self.cursor.fetchone()
-            medNames.append([medData[1],""])
+        for med in patientMeds:
+            self.cursor.execute("SELECT * FROM `Medicine` WHERE id = '"+str(med[1])+"';")
+            patData = self.cursor.fetchone()
+            med.append(patData[1])
+            med.append(patData[2])
 
-        return medNames
+        # print([patientInterventions,rows])
+        return  [patientMeds,rows]
 
+
+    def getPatientVisits(self,id):
+        self.cursor.execute("SELECT * FROM `Visit` WHERE patientId = '"+str(id)+"';")
+        patientVisits = []
+        rows = 0
+        while(True):
+            patData = self.cursor.fetchone()
+            if(not patData):
+                break
+            else:
+                rows += 12
+                vis = []
+                vis.append(str(patData[0]))
+                vis.append(str(patData[1]))
+                vis.append(str(patData[2]))
+                patientVisits.append(vis)
+
+        return [patientVisits,rows]
 
     def logIn(self,login,password):
         self.cursor.execute("SELECT * FROM `Doctor` WHERE login = '" + login +"';")
@@ -169,16 +212,41 @@ class DatabaseCommunication:
         except:
             pass
 
-    def insertNewPatient(self,idp,name,surname,gender,status,birthPlace,birthDate):
-        command = "INSERT INTO `Patient` (`id`, `name`, `surname`, `doctorId`, `gender`, `status`, `birthPlace`, `birthDate`) VALUES (\"" +idp +"\", \"" +name +"\", \"" +surname +"\", '1111', \"" +gender +"\", \"" +status +"\", \"" +birthPlace +"\",\"" +birthDate +"\");"
+    def insertNewPatient(self,idp,name,surname,gender,status,birthPlace,birthCity,postal,birthDate):
+        if(postal.isdigit()):
+            command = "INSERT INTO `Patient` (`id`, `name`, `surname`, `doctorId`, `gender`, `status`, `birthPlace`, `birthState`,`birthCity`,`birthPostal`, `birthDate`) VALUES (\"" +idp +"\", \"" +name +"\", \"" +surname +"\", '1111', \"" +gender +"\", \"" +status +"\", \"" +birthPlace +"\",\"\",\"" + birthCity + "\", \"" + postal + "\", \"" + birthDate +"\");"
+            try:
+                self.cursor.execute(command)
+                self.db.commit()
+            except:
+                pass
+
+    def insertNewProcedure(self,idp,idProc,date,res):
+        command = "INSERT INTO `Intervention choise` (`id`, `interventionId`, `patientId`, `date`,`result`) VALUES (NULL, \"" + str(idProc) + "\", \""+ str(idp) +"\", \""+ date+"\""+", \""+ str(res)+"\");"
+        try:
+            self.cursor.execute(command)
+            self.db.commit()
+        except:
+            pass
+        
+    def insertNewDiag(self,idp,idDiag,date):
+        command = "INSERT INTO `Diagnostics choise` (`id`, `diagnosticsId`, `patientId`, `date`) VALUES (NULL, \"" + str(idDiag) + "\", \""+ str(idp) +"\", \""+ date+"\");"
         try:
             self.cursor.execute(command)
             self.db.commit()
         except:
             pass
 
-    def insertNewProcedure(self,idp,name,snomed,date):
-        command = "INSERT INTO `Intervention` (`id`, `name`, `date`, `patientId`, `snomed`) VALUES (NULL, \"" +name +"\", \"" +date +"\", \"" +idp +"\", \""+ snomed+"\");"
+    def insertNewMed(self,idp,idMed,date):
+        command = "INSERT INTO `Medicine choise` (`medicineId`, `patientId`, `date`) VALUES (\""+ str(idMed) +"\", \""+ str(idp) +"\", \""+ date +"\");"
+        try:
+            self.cursor.execute(command)
+            self.db.commit()
+        except:
+            pass
+
+    def insertNewVisit(self,idp,date):
+        command = "INSERT INTO `Visit` (`id`, `patientId`, `date`) VALUES (NULL, \""+ str(idp) +"\", \""+ date +"\");"
         try:
             self.cursor.execute(command)
             self.db.commit()
@@ -191,11 +259,24 @@ class DatabaseCommunication:
         self.db.commit()
 
     def deleteProcedure(self,idp):
-        command = "DELETE FROM `Intervention` WHERE `Intervention`.`id` = '"+str(idp)+"';"
-        print(command)
+        command = "DELETE FROM `Intervention choise` WHERE `Intervention choise`.`id` = '"+str(idp)+"';"
         self.cursor.execute(command)
         self.db.commit()
 
+    def deleteDiag(self,idp):
+        command = "DELETE FROM `Diagnostics choise` WHERE `Diagnostics choise`.`id` = '"+str(idp)+"';"
+        self.cursor.execute(command)
+        self.db.commit()
+
+    def deleteMed(self,idp):
+        command = "DELETE FROM `Medicine choise` WHERE `Medicine choise`.`id` = '"+str(idp)+"';"
+        self.cursor.execute(command)
+        self.db.commit()
+
+    def deleteVisit(self,idp):
+        command = "DELETE FROM `Visit` WHERE `Visit`.`id` = '"+str(idp)+"';"
+        self.cursor.execute(command)
+        self.db.commit()
 
     def patientExists(self,idp):
         self.cursor.execute("SELECT * FROM `Patient` WHERE id = '"+str(idp)+"';")
@@ -204,3 +285,37 @@ class DatabaseCommunication:
             return False
         else:
             return True
+
+ 
+    def getProcConcepts(self):
+        self.cursor.execute("SELECT * FROM `Intervention`;")
+        procs = []
+        while(True):
+            patData = self.cursor.fetchone()
+            if(not patData):
+                break
+            else:
+                procs.append([str(patData[2]),str(patData[1]),str(patData[0])])
+        return procs
+
+    def getDiagConcepts(self):
+        self.cursor.execute("SELECT * FROM `Diagnostics`;")
+        diags = []
+        while(True):
+            patData = self.cursor.fetchone()
+            if(not patData):
+                break
+            else:
+                diags.append([str(patData[2]),str(patData[1]),str(patData[0])])
+        return diags
+
+    def getMedConcepts(self):
+        self.cursor.execute("SELECT * FROM `Medicine`;")
+        meds = []
+        while(True):
+            patData = self.cursor.fetchone()
+            if(not patData):
+                break
+            else:
+                meds.append([str(patData[2]),str(patData[1]),str(patData[0])])
+        return meds

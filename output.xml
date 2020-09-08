@@ -80,12 +80,12 @@
             <!-- CONF 5284 -->
             <name use="L">
                <!-- L is "Legal" from HL7 EntityNameUse 2.16.840.1.113883.5.45 -->
-               <given>Lenka</given>
+               <given>Jim</given>
                <!-- CL is "Call me" from HL7 EntityNamePartQualifier 2.16.840.1.113883.5.43 -->
-               <family>Lorencova</family>
+               <family>Moris</family>
             </name>
-            <administrativeGenderCode code="F" codeSystem="2.16.840.1.113883.5.1" displayName="Female"/>
-            <birthTime value="1995-06-10"/>
+            <administrativeGenderCode code="M" codeSystem="2.16.840.1.113883.5.1" displayName="Male"/>
+            <birthTime value="1977-06-18"/>
             
             <maritalStatusCode code="S" codeSystem="2.16.840.1.113883.5.2" codeSystemName="MaritalStatusCode" displayName="Single"/>
             <religiousAffiliationCode code="" codeSystem="2.16.840.1.113883.5.1076" codeSystemName="HL7 Religious Affiliation " displayName=""/>
@@ -99,7 +99,7 @@
                      <city></city>
                      <state></state>
                      <postalCode></postalCode>
-                     <country>CR</country>
+                     <country>USA</country>
                   </addr>
                </place>
             </birthplace>
@@ -170,13 +170,13 @@ PROCEDURES
                         <templateId root="2.16.840.1.113883.10.20.22.4.14"/>
                         <!-- Procedure Activity Observation -->
                         <id extension="123456789" root="2.16.840.1.113883.19"/>
-                        <code code="12" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT" displayName="12">
+                        <code code="7922000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT" displayName="121356">
                            <originalText>
                               <reference value=""/>
                            </originalText>
                         </code>
                         <statusCode code="completed"/>
-                        <effectiveTime value="2000-11-21"/>
+                        <effectiveTime value="2020-09-16"/>
                         <priorityCode code="CR" codeSystem="2.16.840.1.113883.5.7" codeSystemName="ActPriority" displayName="Callback results"/>
                         <methodCode nullFlavor="UNK"/>
                      </procedure>
@@ -185,28 +185,13 @@ PROCEDURES
                         <templateId root="2.16.840.1.113883.10.20.22.4.14"/>
                         <!-- Procedure Activity Observation -->
                         <id extension="123456789" root="2.16.840.1.113883.19"/>
-                        <code code="12" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT" displayName="13">
+                        <code code="7922000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT" displayName="121356">
                            <originalText>
                               <reference value=""/>
                            </originalText>
                         </code>
                         <statusCode code="completed"/>
-                        <effectiveTime value="2001-11-21"/>
-                        <priorityCode code="CR" codeSystem="2.16.840.1.113883.5.7" codeSystemName="ActPriority" displayName="Callback results"/>
-                        <methodCode nullFlavor="UNK"/>
-                     </procedure>
-                  </entry><entry typeCode="DRIV">
-                     <procedure classCode="PROC" moodCode="EVN">
-                        <templateId root="2.16.840.1.113883.10.20.22.4.14"/>
-                        <!-- Procedure Activity Observation -->
-                        <id extension="123456789" root="2.16.840.1.113883.19"/>
-                        <code code="11" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT" displayName="Test">
-                           <originalText>
-                              <reference value=""/>
-                           </originalText>
-                        </code>
-                        <statusCode code="completed"/>
-                        <effectiveTime value="2000-11-23"/>
+                        <effectiveTime value="2020-09-16"/>
                         <priorityCode code="CR" codeSystem="2.16.840.1.113883.5.7" codeSystemName="ActPriority" displayName="Callback results"/>
                         <methodCode nullFlavor="UNK"/>
                      </procedure>
