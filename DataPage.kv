@@ -30,7 +30,9 @@
     addVisit:addVisit
     dateAddVisitField:dateAddVisitField
     idDelVisitField:idDelVisitField
-    
+    modVisitButton:modVisitButton
+    idModVisitText:idModVisitText
+
     BoxLayout:
         orientation: 'vertical'
         size_hint:0.5,1
@@ -236,10 +238,23 @@
                         TextInput:
                             id:idDelVisitField
                             size_hint:0.5,1
+                    Button:
+                        size_hint:1,0.075
+                        id:modVisitButton
+                        text:"Změnit data navštěvy(Visit stranka)"
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        size_hint:1,0.075
+                        Label:
+                            size_hint:0.5,1
+                            text:"Id:"
+                        TextInput:
+                            id:idModVisitText
+                            size_hint:0.5,1
                     ScrollView:
                         do_scroll_x: False
                         do_scroll_y: True
-                        size_hint:1,0.7
+                        size_hint:1,0.625
                         BoxLayout:
                             id:scrollPageVisits
                             size_hint_y: None

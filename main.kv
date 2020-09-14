@@ -39,6 +39,8 @@
     removeVisit:dataPage.removeVisit
     dateAddVisitField:dataPage.dateAddVisitField
     idDelVisitField:dataPage.idDelVisitField
+    modVisitButton:dataPage.modVisitButton
+    idModVisitText:dataPage.idModVisitText
 
     procName:procDiagIntPage.procName
     dateProcField:procDiagIntPage.dateProcField
@@ -57,10 +59,8 @@
     procNeg:procDiagIntPage.procNeg
 
     diagName:procDiagIntPage.diagName
-    dateDiagField:procDiagIntPage.dateDiagField
     snomedDiagField:procDiagIntPage.snomedDiagField
     diag:procDiagIntPage.diag
-    diagDate:procDiagIntPage.diagDate
     addDiag:procDiagIntPage.addDiag
     scrollPageDiag:procDiagIntPage.scrollPageDiag
     nameDiagField:procDiagIntPage.nameDiagField
@@ -70,10 +70,8 @@
     diagKonc:procDiagIntPage.diagKonc
 
     medName:procDiagIntPage.medName
-    dateMedField:procDiagIntPage.dateMedField
     snomedMedField:procDiagIntPage.snomedMedField
     med:procDiagIntPage.med
-    medDate:procDiagIntPage.medDate
     addMed:procDiagIntPage.addMed
     scrollPageMed:procDiagIntPage.scrollPageMed
     nameMedField:procDiagIntPage.nameMedField
@@ -81,6 +79,7 @@
     delMed:procDiagIntPage.delMed
     medId:procDiagIntPage.medId
     medKonc:procDiagIntPage.medKonc
+    loadedVisitId:procDiagIntPage.loadedVisitId
 
 
     StandVertBoxLayout:
@@ -101,11 +100,11 @@
                 LoginPage:
                     id:loginPage
             TabbedPanelItem:
-                text: 'List'
+                text: 'Patient'
                 DataPage:
                     id:dataPage
             TabbedPanelItem:
-                text:'Config'
+                text:'Visit'
                 ProcDiagIntPage:
                     id:procDiagIntPage
         BoxLayout:

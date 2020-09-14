@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 08, 2020 at 03:51 PM
+-- Generation Time: Sep 14, 2020 at 05:19 PM
 -- Server version: 5.7.31-0ubuntu0.18.04.1
 -- PHP Version: 7.2.24-0ubuntu0.18.04.6
 
@@ -50,25 +50,18 @@ INSERT INTO `Diagnostics` (`id`, `name`, `icd-10`) VALUES
 CREATE TABLE `Diagnostics choise` (
   `id` int(11) NOT NULL,
   `diagnosticsId` int(11) NOT NULL,
-  `patientId` int(11) NOT NULL,
-  `date` date NOT NULL
+  `visitId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 --
 -- Dumping data for table `Diagnostics choise`
 --
 
-INSERT INTO `Diagnostics choise` (`id`, `diagnosticsId`, `patientId`, `date`) VALUES
-(4, 4, 42341, '2020-11-01'),
-(5, 1, 42342, '2020-11-22'),
-(6, 4, 12332, '2020-11-11'),
-(7, 3, 12332, '2020-11-11'),
-(8, 3, 12332, '2020-11-11'),
-(9, 3, 12332, '2020-11-11'),
-(10, 3, 12332, '2020-11-11'),
-(11, 3, 12332, '2020-11-11'),
-(12, 3, 12332, '2020-11-11'),
-(13, 3, 42342, '2020-11-11');
+INSERT INTO `Diagnostics choise` (`id`, `diagnosticsId`, `visitId`) VALUES
+(23, 3, 40),
+(24, 3, 4),
+(25, 4, 4),
+(26, 4, 4);
 
 -- --------------------------------------------------------
 
@@ -120,7 +113,7 @@ INSERT INTO `Intervention` (`id`, `name`, `snomed`) VALUES
 CREATE TABLE `Intervention choise` (
   `id` int(11) NOT NULL,
   `interventionId` int(11) NOT NULL,
-  `patientId` int(11) NOT NULL,
+  `visitId` int(11) NOT NULL,
   `date` date NOT NULL,
   `result` varchar(64) COLLATE utf8_czech_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
@@ -129,14 +122,8 @@ CREATE TABLE `Intervention choise` (
 -- Dumping data for table `Intervention choise`
 --
 
-INSERT INTO `Intervention choise` (`id`, `interventionId`, `patientId`, `date`, `result`) VALUES
-(1, 121357, 42342, '2020-09-16', 'neg'),
-(3, 121358, 42342, '2020-09-03', 'pos'),
-(4, 121356, 42341, '2020-09-16', 'neg'),
-(7, 121356, 42341, '2020-09-16', 'neg'),
-(22, 121357, 42342, '2020-11-12', 'neg'),
-(23, 121358, 12332, '2020-11-22', 'pos'),
-(25, 121358, 12332, '2020-11-22', 'pos');
+INSERT INTO `Intervention choise` (`id`, `interventionId`, `visitId`, `date`, `result`) VALUES
+(37, 121357, 40, '2020-11-12', 'pos');
 
 -- --------------------------------------------------------
 
@@ -168,19 +155,15 @@ INSERT INTO `Medicine` (`id`, `name`, `snomed`) VALUES
 
 CREATE TABLE `Medicine choise` (
   `medicineId` int(11) NOT NULL,
-  `patientId` int(11) NOT NULL,
-  `date` date NOT NULL
+  `visitId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 --
 -- Dumping data for table `Medicine choise`
 --
 
-INSERT INTO `Medicine choise` (`medicineId`, `patientId`, `date`) VALUES
-(4, 42341, '2020-09-17'),
-(4, 42342, '2020-11-02'),
-(5, 12332, '2020-11-12'),
-(6, 12332, '2020-11-11');
+INSERT INTO `Medicine choise` (`medicineId`, `visitId`) VALUES
+(4, 4);
 
 -- --------------------------------------------------------
 
@@ -230,7 +213,6 @@ CREATE TABLE `Visit` (
 INSERT INTO `Visit` (`id`, `date`, `patientId`) VALUES
 (4, '2020-03-10', 42341),
 (5, '2020-02-10', 42341),
-(7, '2020-11-01', 12332),
 (20, '2020-11-11', 42342),
 (21, '2020-11-11', 42342),
 (22, '2020-11-11', 42342),
@@ -239,7 +221,10 @@ INSERT INTO `Visit` (`id`, `date`, `patientId`) VALUES
 (25, '2020-11-11', 42342),
 (26, '2020-11-11', 42342),
 (27, '2020-11-11', 42342),
-(28, '2020-11-01', 42342);
+(28, '2020-11-01', 42342),
+(30, '2020-09-02', 42341),
+(40, '2010-12-11', 12332),
+(42, '2020-11-12', 12332);
 
 --
 -- Indexes for dumped tables
@@ -257,7 +242,7 @@ ALTER TABLE `Diagnostics`
 ALTER TABLE `Diagnostics choise`
   ADD PRIMARY KEY (`id`),
   ADD KEY `diagnosticsId` (`diagnosticsId`),
-  ADD KEY `Diagnostics choise_ibfk_2` (`patientId`);
+  ADD KEY `Diagnostics choise_ibfk_2` (`visitId`);
 
 --
 -- Indexes for table `Doctor`
@@ -278,7 +263,7 @@ ALTER TABLE `Intervention`
 ALTER TABLE `Intervention choise`
   ADD PRIMARY KEY (`id`),
   ADD KEY `interventionId` (`interventionId`),
-  ADD KEY `Intervention choise_ibfk_2` (`patientId`);
+  ADD KEY `Intervention choise_ibfk_2` (`visitId`);
 
 --
 -- Indexes for table `Medicine`
@@ -290,8 +275,8 @@ ALTER TABLE `Medicine`
 -- Indexes for table `Medicine choise`
 --
 ALTER TABLE `Medicine choise`
-  ADD PRIMARY KEY (`medicineId`,`patientId`),
-  ADD KEY `Medicine choise_ibfk_2` (`patientId`);
+  ADD PRIMARY KEY (`medicineId`,`visitId`),
+  ADD KEY `Medicine choise_ibfk_2` (`visitId`);
 
 --
 -- Indexes for table `Patient`
@@ -320,7 +305,7 @@ ALTER TABLE `Diagnostics`
 -- AUTO_INCREMENT for table `Diagnostics choise`
 --
 ALTER TABLE `Diagnostics choise`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT for table `Intervention`
 --
@@ -330,7 +315,7 @@ ALTER TABLE `Intervention`
 -- AUTO_INCREMENT for table `Intervention choise`
 --
 ALTER TABLE `Intervention choise`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT for table `Medicine`
 --
@@ -340,7 +325,7 @@ ALTER TABLE `Medicine`
 -- AUTO_INCREMENT for table `Visit`
 --
 ALTER TABLE `Visit`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 --
 -- Constraints for dumped tables
 --
@@ -350,21 +335,21 @@ ALTER TABLE `Visit`
 --
 ALTER TABLE `Diagnostics choise`
   ADD CONSTRAINT `Diagnostics choise_ibfk_1` FOREIGN KEY (`diagnosticsId`) REFERENCES `Diagnostics` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `Diagnostics choise_ibfk_2` FOREIGN KEY (`patientId`) REFERENCES `Patient` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `Diagnostics choise_ibfk_2` FOREIGN KEY (`visitId`) REFERENCES `Visit` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `Intervention choise`
 --
 ALTER TABLE `Intervention choise`
   ADD CONSTRAINT `Intervention choise_ibfk_1` FOREIGN KEY (`interventionId`) REFERENCES `Intervention` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `Intervention choise_ibfk_2` FOREIGN KEY (`patientId`) REFERENCES `Patient` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `Intervention choise_ibfk_2` FOREIGN KEY (`visitId`) REFERENCES `Visit` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `Medicine choise`
 --
 ALTER TABLE `Medicine choise`
   ADD CONSTRAINT `Medicine choise_ibfk_1` FOREIGN KEY (`medicineId`) REFERENCES `Medicine` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `Medicine choise_ibfk_2` FOREIGN KEY (`patientId`) REFERENCES `Patient` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `Medicine choise_ibfk_2` FOREIGN KEY (`visitId`) REFERENCES `Visit` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `Patient`

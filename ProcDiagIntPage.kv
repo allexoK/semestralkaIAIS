@@ -22,11 +22,9 @@
     procNeg:procNeg
 
     addDiag:addDiag
-    dateDiagField:dateDiagField
     snomedDiagField:snomedDiagField
     diagName:diagName
     diag:diag
-    diagDate:diagDate
     diagId:diagId
     scrollPageDiag:scrollPageDiag
     nameDiagField:nameDiagField
@@ -35,24 +33,35 @@
     diagKonc:diagKonc
     
     addMed:addMed
-    dateMedField:dateMedField
     snomedMedField:snomedMedField
     medName:medName
     med:med
-    medDate:medDate
     medId:medId
     scrollPageMed:scrollPageMed
     nameMedField:nameMedField
     idDelMedField:idDelMedField
     delMed:delMed
     medKonc:medKonc
-
+    loadedVisitId:loadedVisitId
+ 
     BoxLayout:
         orientation: 'vertical'
         size_hint:1,1
         BoxLayout:
             orientation: 'horizontal'
-            size_hint:1,1
+            size_hint:1,0.05
+            Label:
+                size_hint:0.1,1
+                text:"Visit Id:"
+            Label:
+                size_hint:0.1,1
+                id:loadedVisitId
+                text:""
+            BoxLayout:
+                size_hint:0.7,1            
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint:1,0.95
             canvas:
                 Color:
                     rgba:1,1,1,0.1
@@ -199,19 +208,10 @@
                         Label:
                             id:nameDiagField
                             size_hint:0.5,1
-                    BoxLayout:
-                        orientation: 'horizontal'
-                        size_hint:1,0.1
-                        Label:
-                            size_hint:0.5,1
-                            text:"Date:"
-                        TextInput:
-                            id:dateDiagField
-                            size_hint:0.5,1
                     ScrollView:
                         do_scroll_x: False
                         do_scroll_y: True
-                        size_hint:1,0.5
+                        size_hint:1,0.6
                         BoxLayout:
                             id:scrollPageDiag
                             size_hint_y: None
@@ -221,14 +221,11 @@
                                 size_hint:0.15,1
                                 id:diagId
                             Label:
-                                size_hint:0.20,1
+                                size_hint:0.30,1
                                 id:diag
                             Label:
-                                size_hint:0.45,1
+                                size_hint:0.55,1
                                 id:diagName
-                            Label:
-                                size_hint:0.20,1
-                                id:diagDate
                     Button:
                         size_hint:1,0.075
                         id:delDiag
@@ -280,19 +277,10 @@
                         Label:
                             id:nameMedField
                             size_hint:0.5,1
-                    BoxLayout:
-                        orientation: 'horizontal'
-                        size_hint:1,0.1
-                        Label:
-                            size_hint:0.5,1
-                            text:"Date:"
-                        TextInput:
-                            id:dateMedField
-                            size_hint:0.5,1
                     ScrollView:
                         do_scroll_x: False
                         do_scroll_y: True
-                        size_hint:1,0.5
+                        size_hint:1,0.6
                         BoxLayout:
                             id:scrollPageMed
                             size_hint_y: None
@@ -302,14 +290,11 @@
                                 size_hint:0.15,1
                                 id:medId
                             Label:
-                                size_hint:0.20,1
+                                size_hint:0.30,1
                                 id:med
                             Label:
-                                size_hint:0.45,1
+                                size_hint:0.55,1
                                 id:medName
-                            Label:
-                                size_hint:0.20,1
-                                id:medDate
                     Button:
                         size_hint:1,0.075
                         id:delMed
